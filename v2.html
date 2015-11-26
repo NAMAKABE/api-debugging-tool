@@ -1,0 +1,128 @@
+﻿<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>ADT v2</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp"/>
+		<link rel="stylesheet" href="assets/semantic/semantic.css">
+		<style>
+		.main-ctr{ padding: 100px 0 0; margin: 0 auto; width: 100%; max-width: 1000px;}
+		.main-ctr h2.header { margin: 20px 0 0; text-align: center; }
+		.intro { margin: 15px auto 0 !important; text-align: center;}
+		.chose-cat { margin: 15px 0 0 !important;}
+		.api-panel { background: #fff; position: fixed; left: 3%; top: 3%; width: 94%; height: 94%;    border-radius: 0.28571429rem; border:1px solid #767676;}
+		.api-panel {text-align: left;}
+		.api-panel .ui.header {  margin: 15px 0 0 !important;}
+		.api-panel h2 a { padding: 0 0 0 10px; font-weight: normal;}
+		.list>div { display: inline-block !important; margin: 0 10px  0 0;}
+		.list>div>div { margin: 0 3px 0 0 !important;}
+		.content-container .left { float: left; margin: 20px  0 0 0; width: 40%;height: 400px;overflow: visible; overflow-y: scroll; }
+		.content-container .center { float: left; margin: 20px  0 0 2%; width: 58%; }
+		.content-container .left>.list { /*border-right:1px solid #ccc; */ }
+		ul.ui.list ul, ol.ui.list ol, .ui.list .list { padding-left: 1.2em;}
+		</style>
+	</head>
+	<body class="ui middle aligned one column centered grid">
+		<div class="main-ctr column">
+			<h2 class="ui header">API Debugging Tool 2.0 <small>alpha</small></h2>
+			<p class="intro">请依次选择分类和接口</p>
+			<p class="intro">选择后自动弹出API操作窗口</p>
+			<div class="ui active inverted dimmer" id="v-loader">
+				<div class="ui text loader">{{ message }}</div>
+			</div>
+			<div class="ui grid centered chose-cat">
+				<div class="eight wide column" style="text-align:right" id="cat">
+					<select class="ui dropdown">
+						<option value="">选择一个分类</option>
+						<option value="{{ $index + 1 }}" v-for="key in catList">{{ key.name }}</option>
+					</select>
+				</div>
+				<div class="eight wide column" id="api">
+					<select class="ui dropdown">
+						<option value="">选择一个接口</option>
+						<option value="{{ key.ori_index }}" v-for="key in apiList">{{ key.api_name }}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="api-panel" style="display:none">
+			<h2 class="ui header" id="api-name">Current API <small>{{ apiname }}<a href="{{ apiurl }}" target="_blank">{{ apiurl }}</a></small></h2>
+			<div class="ui divided selection list" id="api-info">
+				<!-- <div>
+								<div class="ui red label">版本</div>
+								{{ ver }}
+				</div> -->
+				<div>
+					<div class="ui orange label">请求编码类型</div>
+					{{ contentType }}
+				</div>
+				<div>
+					<div class="ui purple label">响应数据类型</div>
+					{{ dataType }}
+				</div>
+				<div>
+					<div class="ui blue label">所属模块</div>
+					{{ module }}
+				</div>
+				<div>
+					<div class="ui brown label">所属API</div>
+					{{ api }}
+				</div>
+				<a class="ui tag label green" v-if="get">GET</a>
+				<a class="ui tag label green" v-if="post">POST</a>
+			</div>
+			<div class="content-container">
+				<div id="example">
+					<my-component></my-component>
+				</div>
+				<div class="left" id="parameters">
+					<h3>Parameters List</h3>
+					{{{ content }}}
+				</div>
+				<div class="center" id="parameter_property">
+					<h3>Parameter Property</h3>
+					<div class="property">
+						<div class="ui divided selection list">
+							<a class="item">
+								<div class="ui red horizontal label">参数名称</div>
+								{{ name }}
+							</a>
+							<a class="item">
+								<div class="ui green horizontal label">参数类型</div>
+								{{ type }}
+							</a>
+							<a class="item">
+								<div class="ui teal horizontal label">参数描述</div>
+								{{ desc }}
+							</a>
+							<a class="item">
+								<div class="ui black horizontal label">是否必须</div>
+								{{{ require }}}
+							</a>
+						</div>
+						<form class="ui form value">
+							<h3>Parameter Value</h3>
+							<input type="text" name="first-name" placeholder="First Name">
+							<div class="ui toggle checkbox">
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>True</label>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js" defer></script>
+		<script src="assets/js/underscore-min.js" defer></script>
+		<script src="assets/semantic/semantic.js" defer></script>
+		<script src="assets/js/vue.js" defer></script>
+		<script src="assets/js/v2.js" defer></script>
+    <script>
+    </script>
+	</body>
+</html>
